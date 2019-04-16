@@ -8,11 +8,13 @@ using MyShop.Core.Models;
 
 namespace MyShop.DataAccess.InMemory
 {
-  public  class ProductRepository
+  public class ProductRepository
     {
 
         ObjectCache cache = MemoryCache.Default;
         List<Product> products ;
+
+
         public ProductRepository() //this contract will do a standard initialization 
         {
             products = cache["products"] as List<Product>;
@@ -25,7 +27,7 @@ namespace MyShop.DataAccess.InMemory
         }
         public void Commit() //when people adds product we don't want to add the product straight away
         {
-            cache["Products"] = products; 
+            cache["products"] = products; 
         }
         public void Insert(Product p)
         {
@@ -47,7 +49,7 @@ namespace MyShop.DataAccess.InMemory
 
         public Product Find(string Id)
         {
-            Product product = products.Find(p => p.Id == p.Id); 
+            Product product = products.Find(p => p.Id == Id); 
             if (product != null)
             {
                 return product;
@@ -63,7 +65,7 @@ namespace MyShop.DataAccess.InMemory
         }
         public void Delete(string Id)
         {
-            Product productToDelete = products.Find(p => p.Id == Id); // searching the product that needs to be updated
+            Product productToDelete = products.Find(p => p.Id == Id); // searching the product that needs to be delated
             if (productToDelete != null)
             {
                products.Remove(productToDelete);
