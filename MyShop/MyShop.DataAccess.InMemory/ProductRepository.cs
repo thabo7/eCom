@@ -7,8 +7,8 @@ using System.Runtime.Caching;
 using MyShop.Core.Models;
 
 namespace MyShop.DataAccess.InMemory
-{
-  public class ProductRepository
+{// this class are no longer needed since we have a class InMemory that does the job
+    public class ProductRepository
     {
 
         ObjectCache cache = MemoryCache.Default;

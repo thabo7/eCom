@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MyShop.DataAccess.InMemory
-{
+{// this class are no longer needed since we have a class InMemory that does the job
     public class ProductCategoryRepository
     {
 
