@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MyShop.Core.Contracts;
 using MyShop.Core.Models;
 using MyShop.Core.ViewModels;
 using MyShop.DataAccess.InMemory;
@@ -12,13 +13,13 @@ namespace MyShop.WebUI.Controllers
 {
     public class ProductManagerController : Controller
     {
-        InMemoryRepository<Product> context;
-        InMemoryRepository< ProductCategory> productCategories;
+        IRepository<Product> context;
+        IRepository< ProductCategory> productCategories;
 
-        public ProductManagerController()
+        public ProductManagerController(IRepository<Product> productContext, IRepository<ProductCategory> productCategoryContext)
         {
-            context = new InMemoryRepository<Product>();
-            productCategories = new InMemoryRepository<ProductCategory>();
+            context = productContext;
+            productCategories = productCategoryContext;
         }
         // GET: ProductManager
         public ActionResult Index()
@@ -29,7 +30,7 @@ namespace MyShop.WebUI.Controllers
         public ActionResult Create()
         {
             ProductManagerViewModel viewModel = new ProductManagerViewModel();
-            viewModel.product = new Product();
+            viewModel.Product = new Product();
             viewModel.ProductCategories = productCategories.Collection();
             return View(viewModel);
         }
@@ -59,7 +60,7 @@ namespace MyShop.WebUI.Controllers
             else
             {
                 ProductManagerViewModel viewModel = new ProductManagerViewModel();
-                viewModel.product = product;
+                viewModel.Product = product;
                 viewModel.ProductCategories = productCategories.Collection();
 
                 return View(viewModel);
@@ -84,7 +85,7 @@ namespace MyShop.WebUI.Controllers
                 productToEdit.Description = product.Description;
                 productToEdit.Image = productToEdit.Image;
                productToEdit.Name = productToEdit.Name;
-                productToEdit.price = productToEdit.price;
+                productToEdit.Price = productToEdit.Price;
                 context.Commit();
 
                 return RedirectToAction("Index");

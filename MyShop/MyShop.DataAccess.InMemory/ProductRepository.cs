@@ -17,7 +17,7 @@ namespace MyShop.DataAccess.InMemory
 
         public ProductRepository() //this contract will do a standard initialization 
         {
-            products = cache["products"] as List<Product>;
+            products = cache["Products"] as List<Product>;
             if(products == null)
             {
                 products = new List<Product>();
@@ -27,7 +27,7 @@ namespace MyShop.DataAccess.InMemory
         }
         public void Commit() //when people adds product we don't want to add the product straight away
         {
-            cache["products"] = products; 
+            cache["Products"] = products; 
         }
         public void Insert(Product p)
         {
