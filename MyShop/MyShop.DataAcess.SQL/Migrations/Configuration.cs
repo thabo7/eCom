@@ -12,7 +12,7 @@ namespace MyShop.DataAcess.SQL.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(MyShop.DataAcess.SQL.DataContext context)
+        protected override void Seed(MyShop.DataAcess.SQL.DataContext Context)
         {
             //  This method will be called after migrating to the latest version.
 
