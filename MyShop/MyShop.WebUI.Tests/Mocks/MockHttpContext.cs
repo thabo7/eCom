@@ -16,7 +16,7 @@ namespace MyShop.WebUI.Tests.Mocks
         private IPrincipal FakeUser;
 
         public MockHttpContext()
-        {
+       {
             cookies = new HttpCookieCollection();
             this.request = new MockRequest(cookies);
             this.response = new MockResponse(cookies);

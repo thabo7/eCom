@@ -96,7 +96,7 @@ namespace MyShop.WebUI.Controllers
         public ActionResult ThankYou(string OrderId)
         {
             ViewBag.OrderId = OrderId;
-            return View();
+            return View(); 
         }
     }
 }
