@@ -11,18 +11,19 @@ namespace MyShop.WebUI.Controllers
 {
     public class ProductCategoryManagerController : Controller
     {
-        IRepository<ProductCategory> Context;
+        IRepository<ProductCategory> context;
 
-        public ProductCategoryManagerController(IRepository<ProductCategory> Context)
+        public ProductCategoryManagerController(IRepository<ProductCategory> context)
         {
-            this.Context = Context;
+            this.context = context;
         }
         // GET: ProductManager
         public ActionResult Index()
         {
-            List<ProductCategory> productCategories = Context.Collection().ToList();
+            List<ProductCategory> productCategories = context.Collection().ToList();
             return View(productCategories);
         }
+
         public ActionResult Create()
         {
             ProductCategory productCategory = new ProductCategory();
@@ -38,15 +39,17 @@ namespace MyShop.WebUI.Controllers
             }
             else
             {
-                Context.Insert(productCategory);
-                Context.Commit();
+                context.Insert(productCategory);
+                context.Commit();
 
                 return RedirectToAction("Index");
             }
+
         }
+
         public ActionResult Edit(string Id)
         {
-            ProductCategory productCategory = Context.Find(Id);
+            ProductCategory productCategory = context.Find(Id);
             if (productCategory == null)
             {
                 return HttpNotFound();
@@ -58,10 +61,11 @@ namespace MyShop.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(ProductCategory productCategory, string Id)
+        public ActionResult Edit(ProductCategory product, string Id)
         {
-            ProductCategory productCategoryToEdit = Context.Find(Id);
-            if (productCategory == null)
+            ProductCategory productCategoryToEdit = context.Find(Id);
+
+            if (productCategoryToEdit == null)
             {
                 return HttpNotFound();
             }
@@ -69,45 +73,46 @@ namespace MyShop.WebUI.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(productCategory);
+                    return View(product);
                 }
-                productCategoryToEdit.Category = productCategory.Category;
-     
-                Context.Commit();
+
+                productCategoryToEdit.Category = product.Category;
+
+                context.Commit();
 
                 return RedirectToAction("Index");
-
-
             }
         }
+
         public ActionResult Delete(string Id)
         {
-            ProductCategory productCategoryToDelete = Context.Find(Id);
+            ProductCategory productCategoryToDelete = context.Find(Id);
+
             if (productCategoryToDelete == null)
             {
                 return HttpNotFound();
-
             }
             else
             {
                 return View(productCategoryToDelete);
             }
         }
+
         [HttpPost]
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(string Id)
         {
-            ProductCategory productCategoryToDelete = Context.Find(Id);
+            ProductCategory productCategoryToDelete = context.Find(Id);
+
             if (productCategoryToDelete == null)
             {
                 return HttpNotFound();
             }
             else
             {
-                Context.Delete(Id);
-                Context.Commit();
+                context.Delete(Id);
+                context.Commit();
                 return RedirectToAction("Index");
-
             }
         }
     }

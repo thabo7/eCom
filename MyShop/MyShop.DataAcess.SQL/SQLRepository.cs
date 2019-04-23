@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MyShop.Core.Contracts;
 using MyShop.Core.Models;
+using MyShop.DataAccess.SQL;
 
 namespace MyShop.DataAcess.SQL
 {
